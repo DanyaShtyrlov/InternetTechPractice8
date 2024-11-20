@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <svg  id="elsvg">
+            <defs>
+                <radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                    <stop offset="0%" style="stop-color:rgb(255,255,255);stop-opacity:0;"/>
+                    <stop offset="100%" style="stop-color:rgb(0,0,255);stop-opacity:1;"/>
+                </radialGradient>
+            </defs>
+            <ellipse id="elps" cx="200" cy="70" rx="85" ry="55" fill="url(#grad1)" onmousedown="mouseClicked(event)"/>
+        </svg>
+        <script type="text/javascript">
+            var SVGelem = document.getElementById("elsvg")
+            var elpsEl = document.getElementById("elps")
+            var erx = elpsEl.getAttribute("rx")
+            var ery = elpsEl.getAttribute("ry")
+
+            function mouseClicked(event)
+            {
+                if (event.button == 0)
+                {
+                    erx = 1.0 * erx + 10;
+                    ery = 1.0 * ery + 10;
+
+                    elpsEl.setAttribute("rx",erx);
+                    elpsEl.setAttribute("ry",ery);
+                } else 
+                {
+                    erx = erx - 10;
+                    ery = ery - 10;
+
+                    elpsEl.setAttribute("rx",erx);
+                    elpsEl.setAttribute("ry",ery);
+                }
+            }
+        </script>
+    </body>
+</html>

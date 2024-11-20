@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div style="text-align:center"> 
+
+    <video id="myvideo" width="320" height="240">
+       <source src="myvideo.mp4" type="video/mp4" /> 
+        Your browser does not support the video tag.
+    </video>
+    <br/>
+    <span id="vduration">00:00</span> <br/>
+    
+    <canvas id="canvas" width="500" height="20">
+        canvas not supported
+    </canvas>
+    <br/>
+    <svg  height="20px" width="360px">
+      <rect id="progressBarSVG" x="20" y="0"  height="20" style="fill:rgb(0,0,255)"></rect>
+    </svg>
+    <br/>
+
+    <button id="PlayButton" onclick="playPause()">Play</button>
+        
+</div>
+
+<script> 
+
+   var myVideo = document.getElementById("myvideo");
+   var progressCanvas = document.getElementById('canvas');
+   var tmDuration = document.getElementById("vduration");
+   var myButton = document.getElementById("PlayButton");
+   var progressSVG = document.getElementById("progressBarSVG");
+   
+
+   function DisplayDuration() 
+    {
+        var widthAttr = myVideo.getAttribute('width');
+        var heightAttr = progressCanvas.getAttribute('height');
+
+        progressCanvas.setAttribute('width', widthAttr);
+  
+        var ctx=progressCanvas.getContext("2d");
+        
+        ctx.rect(0,0,widthAttr,heightAttr);
+        ctx.stroke();
+    
+        tmDuration.innerHTML = "Total duration:" + Math.floor(myVideo.duration) + " s.";   
+    }
+    function playPause() 
+    {
+      if (myVideo.paused){
+        myButton.innerHTML = "Pause";
+        myVideo.play()
+      } 
+      else {
+        myButton.innerHTML = "Play";
+        myVideo.pause()
+      };
+    }
+    function progressBar() 
+    { 
+        var elapsedTime = Math.round(myVideo.currentTime);
+        progressCanvas.setAttribute("title", elapsedTime + " seconds");
+        if (canvas.getContext) 
+        {
+            var ctx = progressCanvas.getContext("2d");
+            ctx.fillStyle = "rgb(10,10,10)";
+            var fWidth = (elapsedTime / myVideo.duration)*(progressCanvas.clientWidth);
+            if (fWidth > 0)
+            {
+                ctx.fillRect(0, 0, fWidth, progressCanvas.clientHeight);
+                progressSVG.setAttribute("width",fWidth);
+            }
+        }
+        
+    }
+    function tooltip()
+    {
+      progressCanvas.setAttribute("title", myVideo.currentTime + " seconds");
+    }
+
+    myVideo.addEventListener("loadedmetadata", DisplayDuration, false);
+    myVideo.addEventListener("timeupdate", progressBar, false);
+    progressCanvas.addEventListener("mouseover", tooltip)
+
+</script> 
+</body>
+</html>

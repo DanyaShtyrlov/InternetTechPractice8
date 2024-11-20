@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+	<html lang="en">
+	    <head>
+	        <meta charset="utf-8" />
+	    </head>
+	    
+	    <body>
+	        
+	        <canvas id="myCanvas" width="500" height="300" style="border:1px solid #c3c3c3;" onmousedown="mouseClicked(event);">
+	            Your browser does not support the canvas element.
+	        </canvas>
+
+	        <script type="text/javascript">
+	            var c=document.getElementById("myCanvas");
+	            var ctx=c.getContext("2d");
+	            
+	            var x= 70;
+	            var y= 50;
+	            var r= 45;
+	            
+	            var dx;
+	            var dy;
+	            
+	            var canvWidth = c.width; 
+	            var canvHeight = c.height; 
+	                        
+	            ctx.fillStyle="#FF0000";
+	            ctx.beginPath();
+	            ctx.arc(x,y,r,0,Math.PI*2,true);
+	            ctx.closePath();
+	            ctx.fill();
+	            
+	            function mouseClicked(event)
+	            {
+	                if (ctx.isPointInPath(event.x,event.y)) 
+	                {
+	
+	                 ctx.fillStyle="#FFFFFF";
+	                 ctx.beginPath();
+	                 ctx.arc(x,y,r,0,Math.PI*2,true);
+	                 ctx.closePath();
+	                 ctx.fill();
+	
+	                 x = Math.round(canvWidth*Math.random());
+	                 y = Math.round(canvHeight*Math.random());
+
+	                 ctx.fillStyle="#FF0000";
+	                 ctx.beginPath();
+	                 ctx.arc(x,y,r,0,Math.PI*2,true);
+	                 ctx.closePath();
+	                 ctx.fill();
+	                 
+	                }
+	            }
+	        </script>
+        
+	    </body>
+	</html>
